@@ -62,7 +62,7 @@ private val LocalPalette = staticCompositionLocalOf {
 }
 
 @Composable
-private fun WordLockTheme(content: @Composable () -> Unit) {
+internal fun WordLockTheme(content: @Composable () -> Unit) {
     val dark = isSystemInDarkTheme()
     val p = if (dark) Palette(Color(0xFF0E0F10), Color(0xFFECEBE8), Color(0xFF8D8F92), Color(0xFF25272A), Color(0xFF151618), Color(0xFF5BC894))
     else LocalPalette.current
@@ -75,7 +75,7 @@ private fun WordLockTheme(content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun SettingsScreen() {
+internal fun SettingsScreen() {
     val context = LocalContext.current
     val p = LocalPalette.current
     val prefs = remember { Prefs(context) }
@@ -92,7 +92,7 @@ private fun SettingsScreen() {
                 ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         )
     }
-    val batteryOk = context.getSystemService(PowerManager::class.java).isIgnoringBatteryOptimizations(context.packageName)
+    val batteryOk = runCatching { context.getSystemService(PowerManager::class.java).isIgnoringBatteryOptimizations(context.packageName) }.getOrDefault(false)
     val notifLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { notifOk = it }
 
     // If the user turned it on before granting the overlay permission, it can't run yet.

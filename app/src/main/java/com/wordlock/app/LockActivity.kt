@@ -121,7 +121,7 @@ class LockActivity : ComponentActivity() {
 private enum class Mode { QUIZ, PIN, SOLVED }
 
 @Composable
-private fun LockScreen(prefs: Prefs, preview: Boolean, onUnlocked: () -> Unit) {
+internal fun LockScreen(prefs: Prefs, preview: Boolean, onUnlocked: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val level = remember { prefs.level }

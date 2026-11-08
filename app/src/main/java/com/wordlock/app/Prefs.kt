@@ -26,7 +26,7 @@ class Prefs(context: Context) {
     private fun rollDay() {
         val today = LocalDate.now().toString()
         if (sp.getString("day", null) != today) {
-            sp.edit().putString("day", today).putInt("count", 0).putInt("streak", 0).putString("log", "").apply()
+            sp.edit().also { it.putString("day", today); it.putInt("count", 0); it.putInt("streak", 0); it.putString("log", "") }.apply()
         }
     }
 
