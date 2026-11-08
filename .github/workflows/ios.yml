@@ -18,7 +18,12 @@ jobs:
       - name: Build for iOS Simulator (no signing)
         working-directory: ios
         run: |
-          set -o pipefail
           xcodebuild -project WordLock.xcodeproj -scheme WordLock \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-            CODE_SIGNING_ALLOWED=NO build | tail -n 80
+            CODE_SIGNING_ALLOWED=NO build > build.log 2>&1 && { tail -n 20 build.log; exit 0; }
+          # Surface compiler errors as annotations so they are readable without opening the log.
+          grep -E "error:|error :" build.log | sort -u | head -n 40 | while IFS= read -r line; do
+            echo "::error::${line//$'\n'/ }"
+          done
+          tail -n 60 build.log
+          exit 1
