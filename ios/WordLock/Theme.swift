@@ -6,12 +6,12 @@ enum Theme {
     static let mint = Color(red: 0.75, green: 0.94, blue: 0.84)
 
     // Settings screen, light and dark.
-    static let bg = Color(light: .init(red: 0.953, green: 0.949, blue: 0.937), dark: .init(red: 0.055, green: 0.059, blue: 0.063))
-    static let panel = Color(light: .init(red: 0.984, green: 0.980, blue: 0.973), dark: .init(red: 0.082, green: 0.086, blue: 0.094))
-    static let fg = Color(light: .init(red: 0.09, green: 0.10, blue: 0.106), dark: .init(red: 0.925, green: 0.922, blue: 0.91))
-    static let muted = Color(light: .init(red: 0.435, green: 0.447, blue: 0.459), dark: .init(red: 0.553, green: 0.561, blue: 0.573))
-    static let line = Color(light: .init(red: 0.882, green: 0.875, blue: 0.855), dark: .init(red: 0.145, green: 0.153, blue: 0.165))
-    static let ok = Color(light: .init(red: 0.18, green: 0.54, blue: 0.37), dark: .init(red: 0.36, green: 0.78, blue: 0.58))
+    static let bg = Color(light: .init(red: 0.953, green: 0.949, blue: 0.937, alpha: 1), dark: .init(red: 0.055, green: 0.059, blue: 0.063, alpha: 1))
+    static let panel = Color(light: .init(red: 0.984, green: 0.980, blue: 0.973, alpha: 1), dark: .init(red: 0.082, green: 0.086, blue: 0.094, alpha: 1))
+    static let fg = Color(light: .init(red: 0.09, green: 0.10, blue: 0.106, alpha: 1), dark: .init(red: 0.925, green: 0.922, blue: 0.91, alpha: 1))
+    static let muted = Color(light: .init(red: 0.435, green: 0.447, blue: 0.459, alpha: 1), dark: .init(red: 0.553, green: 0.561, blue: 0.573, alpha: 1))
+    static let line = Color(light: .init(red: 0.882, green: 0.875, blue: 0.855, alpha: 1), dark: .init(red: 0.145, green: 0.153, blue: 0.165, alpha: 1))
+    static let ok = Color(light: .init(red: 0.18, green: 0.54, blue: 0.37, alpha: 1), dark: .init(red: 0.36, green: 0.78, blue: 0.58, alpha: 1))
 }
 
 extension Color {
