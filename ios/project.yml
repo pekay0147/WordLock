@@ -1,0 +1,93 @@
+name: WordLock
+options:
+  bundleIdPrefix: com.wordlock
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""          # 애플 개발자 Team ID를 넣으세요
+    CODE_SIGN_STYLE: Automatic
+    TARGETED_DEVICE_FAMILY: "1"
+
+targetTemplates:
+  Extension:
+    type: app-extension
+    platform: iOS
+    entitlements:
+      path: ${target_name}/${target_name}.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups: [group.com.wordlock.app]
+
+targets:
+  WordLock:
+    type: application
+    platform: iOS
+    sources: [WordLock, Shared]
+    scheme: {}
+    info:
+      path: WordLock/Info.plist
+      properties:
+        CFBundleDisplayName: Word Lock
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+    entitlements:
+      path: WordLock/WordLock.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups: [group.com.wordlock.app]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wordlock.app
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    dependencies:
+      - target: WordLockShieldConfig
+      - target: WordLockShieldAction
+      - target: WordLockMonitor
+
+  WordLockShieldConfig:
+    templates: [Extension]
+    sources: [WordLockShieldConfig, Shared]
+    info:
+      path: WordLockShieldConfig/Info.plist
+      properties:
+        CFBundleDisplayName: Word Lock Shield
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.ManagedSettingsUI.shield-configuration-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShieldConfigurationExtension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wordlock.app.shieldconfig
+
+  WordLockShieldAction:
+    templates: [Extension]
+    sources: [WordLockShieldAction, Shared]
+    info:
+      path: WordLockShieldAction/Info.plist
+      properties:
+        CFBundleDisplayName: Word Lock Shield Action
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.ManagedSettings.shield-action-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShieldActionExtension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wordlock.app.shieldaction
+
+  WordLockMonitor:
+    templates: [Extension]
+    sources: [WordLockMonitor, Shared]
+    info:
+      path: WordLockMonitor/Info.plist
+      properties:
+        CFBundleDisplayName: Word Lock Monitor
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivity.monitor-extension
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).DeviceActivityMonitorExtension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wordlock.app.monitor

@@ -4,3 +4,6 @@ app/build/
 local.properties
 *.iml
 .idea/
+ios/WordLock.xcodeproj/
+ios/build/
+DerivedData/
